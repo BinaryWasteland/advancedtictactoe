@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeClient", "TicTacToeClient\TicTacToeClient.csproj", "{5643E7F3-B7DC-4FC4-9197-6D5EEA681CCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeServer", "TicTacToeServer\TicTacToeServer.csproj", "{B1DBFDB7-F2CA-434A-8B05-FA6DE86CA8BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,12 @@ Global
 		{5643E7F3-B7DC-4FC4-9197-6D5EEA681CCE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5643E7F3-B7DC-4FC4-9197-6D5EEA681CCE}.Release|x86.ActiveCfg = Release|x86
 		{5643E7F3-B7DC-4FC4-9197-6D5EEA681CCE}.Release|x86.Build.0 = Release|x86
+		{B1DBFDB7-F2CA-434A-8B05-FA6DE86CA8BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1DBFDB7-F2CA-434A-8B05-FA6DE86CA8BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1DBFDB7-F2CA-434A-8B05-FA6DE86CA8BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B1DBFDB7-F2CA-434A-8B05-FA6DE86CA8BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1DBFDB7-F2CA-434A-8B05-FA6DE86CA8BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1DBFDB7-F2CA-434A-8B05-FA6DE86CA8BD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
