@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Http;
 
 namespace TicTacToeServer
 {
