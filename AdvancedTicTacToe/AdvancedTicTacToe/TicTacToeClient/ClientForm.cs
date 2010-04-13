@@ -186,6 +186,11 @@ namespace TicTacToeClient
             btnNew.Enabled = btnReplay.Enabled = true;
         }
 
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUpdatesFromServer.cs" />
     <Compile Include="Locations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
