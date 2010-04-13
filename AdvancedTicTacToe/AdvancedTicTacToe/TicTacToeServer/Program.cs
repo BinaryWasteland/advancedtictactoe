@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Runtime.Remoting;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Http;
+
+using System.Runtime.Remoting;  // RemotingConfiguration class
+using System.Runtime.Remoting.Channels; // ChannelServices class
+using System.Runtime.Remoting.Channels.Http; // HttpChannel class
 
 namespace TicTacToeServer
 {
