@@ -16,5 +16,10 @@ namespace TicTacToeClient
             // Store a ref to the clients user interface
             client = f;
         }
+
+        public void UpdateLocationCallback(char[] i)
+        {
+
+        }
     }
 }
