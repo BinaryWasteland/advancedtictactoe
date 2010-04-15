@@ -31,7 +31,6 @@ namespace TicTacToeClient
         private bool playMode = false;          // Used to disable cells' click event during 'replays'
         private Label[] cells = new Label[9];   // Tic-Tac-Toe cell controls
 
-
         // C'tor method
         public ClientForm()
         {
@@ -136,8 +135,28 @@ namespace TicTacToeClient
             }
         }
 
-        private void refreshGrid(char[] grid)
+        // Indirectly called by the server to update the UI
+        private delegate void FormUpdateDelegate(char[] grid);
+
+        public void refreshGrid(char[] grid)
         {
+            try
+            {
+                if (false/*cell.InvokeRequired*/)
+                {
+                    // This will happen if current thread isn't the UI's own thread
+                    //cells.BeginInvoke(new FormUpdateDelegate(refreshGrid), grid);
+                }
+                else
+                {
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Tic-Tac-Toe Error");
+            }
+
             for (int i = 0; i < cells.Length; ++i)
                 cells[i].Text = grid[i].ToString();
         }
