@@ -17,9 +17,9 @@ namespace TicTacToeClient
             client = f;
         }
 
-        public void UpdateLocationCallback(char[] grid)
+        public void UpdateLocationCallback(int pos, char val)
         {
-            client.refreshGrid(grid);
+            client.refreshGrid(pos, val);
         }
     }
 }
