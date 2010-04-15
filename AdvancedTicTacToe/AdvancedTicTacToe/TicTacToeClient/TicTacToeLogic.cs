@@ -37,8 +37,8 @@ namespace TicTacToeClient
             gameState.GameOver = false;
             gameState.Winner = TicTacToeState.Who.NOBODY;
 
-            if (!gameState.UserMovesFirst)
-                addProgMoveToGrid();
+            //if (!gameState.UserMovesFirst)
+                //addUser2MoveToGrid(cell);
 
             return gameState;
         }
@@ -49,7 +49,7 @@ namespace TicTacToeClient
             addUserMoveToGrid(cell);
 
             if (!gameState.GameOver)
-                addProgMoveToGrid();
+                addUser2MoveToGrid(cell);
 
             return gameState;
         }
@@ -100,18 +100,11 @@ namespace TicTacToeClient
             updateGameOver();
         }
 
-        private void addProgMoveToGrid()
+        private void addUser2MoveToGrid(int cell)
         {
-            int cell;
-
-            // Get a random move
-            List<int> availableCells = new List<int>();
-            for (int i = 0; i < gameState.Position.Length; ++i)
-                if (gameState.Position[i] == ' ')
-                    availableCells.Add(i);
-            cell = availableCells[random.Next(availableCells.Count)];
-
-            // Make move
+            if (gameState.Position[cell] != ' ')
+                throw new ArgumentException("Cell is already occupied.");
+            //gameState.Position[cell] = gameState.Symbols[(int)(T3State.Who.USER)];
             gameState.Position[cell] = (char)(TicTacToeState.Symbol.USER2);
             gameState.Sequence[gameState.MoveNumber++] = cell;
 
