@@ -5,12 +5,12 @@ using System.Text;
 
 namespace TicTacToeLibrary
 {
-    //[Serializable]
     public class Locations : MarshalByRefObject
     {
         // Member variables used to identify a specific location
-        private char[] grid;
         private Dictionary<Guid, IUpdatesFromServer> clientCallbacks = new Dictionary<Guid, IUpdatesFromServer>();
+        private TicTacToeState gameState = new TicTacToeState();
+        private char[] grid;
 
         // Constructor
         public Locations() { }
@@ -33,8 +33,9 @@ namespace TicTacToeLibrary
             clientCallbacks.Remove(token);
         }
 
-        private void UpdateGridInfo()
+        public void UpdateGridInfo(char[] gridloc)
         {
+            grid = gridloc;
             foreach (IUpdatesFromServer callback in clientCallbacks.Values)
                 callback.UpdateLocationCallback(grid);
         }
@@ -42,8 +43,10 @@ namespace TicTacToeLibrary
         //Accessor methods
         public char[] Grid
         {
-            get { return grid; }
-            set { grid = value; }
+            get
+            {
+                return grid;
+            }
         }
     }
 }

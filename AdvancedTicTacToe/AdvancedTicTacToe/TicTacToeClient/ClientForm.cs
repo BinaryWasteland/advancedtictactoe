@@ -120,7 +120,9 @@ namespace TicTacToeClient
                 try
                 {
                     TicTacToeState gameState = t3.NextMove(cell);
-                    refreshGrid(gameState.Position);
+                    //refreshGrid(gameState.Position);
+                    loc.UpdateGridInfo(gameState.Position);
+                    
                     if (gameState.GameOver)
                     {
                         playMode = false;
@@ -142,27 +144,30 @@ namespace TicTacToeClient
         {
             try
             {
-                if (false/*cell.InvokeRequired*/)
+                for (int i = 0; i < cells.Length; i++ )
                 {
-                    // This will happen if current thread isn't the UI's own thread
-                    //cells.BeginInvoke(new FormUpdateDelegate(refreshGrid), grid);
-                }
-                else
-                {
-                    
+                    if (cells[i].InvokeRequired)
+                    {
+                        // This will happen if current thread isn't the UI's own thread
+                        cells[i].BeginInvoke(new FormUpdateDelegate(refreshGrid), grid);
+                    }
+                    else
+                    {
+                        cells[i].Text = grid[i].ToString();
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Tic-Tac-Toe Error");
             }
-
-            for (int i = 0; i < cells.Length; ++i)
-                cells[i].Text = grid[i].ToString();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            if (callbackId != null)
+                // Tell shoe to discard this client's callback interface
+                loc.UnregisterCallback(callbackId);
             this.Close();
         }
 
@@ -170,7 +175,7 @@ namespace TicTacToeClient
         {
             playMode = true;
             TicTacToeState gameState = t3.NextGame();
-            refreshGrid(gameState.Position);
+            loc.UpdateGridInfo(gameState.Position);
             btnNew.Enabled = btnReplay.Enabled = false;
         }
 

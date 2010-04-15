@@ -8,7 +8,7 @@
 
 using System;
 
-namespace TicTacToeClient
+namespace TicTacToeLibrary
 {
     public class TicTacToeState
     {
