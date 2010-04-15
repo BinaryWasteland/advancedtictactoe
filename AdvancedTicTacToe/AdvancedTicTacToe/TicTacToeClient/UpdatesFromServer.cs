@@ -19,7 +19,7 @@ namespace TicTacToeClient
 
         public void UpdateLocationCallback(char[] grid)
         {
-
+            client.refreshGrid(grid);
         }
     }
 }

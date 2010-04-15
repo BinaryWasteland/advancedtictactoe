@@ -46,10 +46,16 @@ namespace TicTacToeClient
         // Process the next user move in the current interactive game 
         public TicTacToeState NextMove(int cell)
         {
-            addUserMoveToGrid(cell);
-
-            if (!gameState.GameOver)
-                addUser2MoveToGrid(cell);
+            if ((gameState.MoveNumber % 2) == 0)
+            {
+                if (!gameState.GameOver)
+                    addUserMoveToGrid(cell);
+            }
+            else
+            {
+                if (!gameState.GameOver)
+                    addUser2MoveToGrid(cell);
+            }
 
             return gameState;
         }
@@ -92,7 +98,6 @@ namespace TicTacToeClient
         {
             if (gameState.Position[cell] != ' ')
                 throw new ArgumentException("Cell is already occupied.");
-            //gameState.Position[cell] = gameState.Symbols[(int)(T3State.Who.USER)];
             gameState.Position[cell] = (char)(TicTacToeState.Symbol.USER);
             gameState.Sequence[gameState.MoveNumber++] = cell;
 
@@ -104,7 +109,6 @@ namespace TicTacToeClient
         {
             if (gameState.Position[cell] != ' ')
                 throw new ArgumentException("Cell is already occupied.");
-            //gameState.Position[cell] = gameState.Symbols[(int)(T3State.Who.USER)];
             gameState.Position[cell] = (char)(TicTacToeState.Symbol.USER2);
             gameState.Sequence[gameState.MoveNumber++] = cell;
 
