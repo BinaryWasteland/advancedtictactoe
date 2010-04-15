@@ -30,6 +30,7 @@ namespace TicTacToeClient
         private TicTacToeLogic t3 = new TicTacToeLogic();     // Game logic layer
         private bool playMode = false;          // Used to disable cells' click event during 'replays'
         private Label[] cells = new Label[9];   // Tic-Tac-Toe cell controls
+        private bool playTrue = false;
 
         // C'tor method
         public ClientForm()
@@ -109,6 +110,7 @@ namespace TicTacToeClient
 
                 // Process the requested move
                 makeUserMove(cellIdx);
+                
             }
         }
 
@@ -120,7 +122,7 @@ namespace TicTacToeClient
                 try
                 {
                     TicTacToeState gameState = t3.NextMove(cell);
-                    refreshGrid(gameState.Position);
+                    refreshGrid(cell, gameState.Position[cell]);
                     if (gameState.GameOver)
                     {
                         playMode = false;
@@ -136,9 +138,9 @@ namespace TicTacToeClient
         }
 
         // Indirectly called by the server to update the UI
-        private delegate void FormUpdateDelegate(char[] grid);
+        private delegate void FormUpdateDelegate(int pos, char val);
 
-        public void refreshGrid(char[] grid)
+        public void refreshGrid(int pos, char val)
         {
             try
             {
@@ -149,11 +151,11 @@ namespace TicTacToeClient
                     {
                         // This will happen if current thread isn't the UI's own thread
                         cells[i].BeginInvoke(new FormUpdateDelegate(refreshGrid),
-                            grid);
+                            pos, val);
                     }
                     else
                     {
-                        cells[i].Text = grid[i].ToString();
+                        cells[pos].Text = val.ToString();
                         //// This will happen if the current thread IS the UI's thread
                         //txtShoeCount.Text = numCardsInShoe.ToString();
                         //numDecks.Value = numDecksInShoe;
@@ -166,6 +168,8 @@ namespace TicTacToeClient
                         //}
                     }
                 }
+                
+                
             }
             catch (Exception ex)
             {
@@ -183,8 +187,9 @@ namespace TicTacToeClient
         private void btnNew_Click(object sender, EventArgs e)
         {
             playMode = true;
+            playTrue = true;
             TicTacToeState gameState = t3.NextGame();
-            refreshGrid(gameState.Position);
+            //refreshGrid(gameState.Position);
             btnNew.Enabled = btnReplay.Enabled = false;
         }
 

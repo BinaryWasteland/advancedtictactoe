@@ -7,6 +7,6 @@ namespace TicTacToeLibrary
 {
     public interface IUpdatesFromServer
     {
-        void UpdateLocationCallback(char[] grid);
+        void UpdateLocationCallback(int pos, char val);
     }
 }
