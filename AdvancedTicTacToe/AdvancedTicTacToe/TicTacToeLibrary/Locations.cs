@@ -9,7 +9,7 @@ namespace TicTacToeLibrary
     public class Locations : MarshalByRefObject
     {
         // Member variables used to identify a specific location
-        private char[] loc;
+        private char[] grid;
         private Dictionary<Guid, IUpdatesFromServer> clientCallbacks = new Dictionary<Guid, IUpdatesFromServer>();
 
         // Constructor
@@ -35,18 +35,15 @@ namespace TicTacToeLibrary
 
         private void UpdateGridInfo()
         {
-            int[] blank = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-            int[] x = null;
-            int[] o = null;
             foreach (IUpdatesFromServer callback in clientCallbacks.Values)
-                callback.UpdateLocationCallback(blank, x, o);
+                callback.UpdateLocationCallback(grid);
         }
 
         //Accessor methods
         public char[] Grid
         {
-            get { return loc; }
-            set { loc = value; }
+            get { return grid; }
+            set { grid = value; }
         }
     }
 }

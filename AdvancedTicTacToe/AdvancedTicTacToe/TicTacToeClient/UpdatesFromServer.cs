@@ -17,7 +17,7 @@ namespace TicTacToeClient
             client = f;
         }
 
-        public void UpdateLocationCallback(int[] blank, int[] x, int[] o)
+        public void UpdateLocationCallback(char[] grid)
         {
 
         }
