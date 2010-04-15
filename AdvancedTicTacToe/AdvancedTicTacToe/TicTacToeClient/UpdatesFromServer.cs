@@ -11,13 +11,13 @@ namespace TicTacToeClient
     {
         private ClientForm client;
 
-        public UpdatesFromServer( ClientForm f)
+        public UpdatesFromServer(ClientForm f)
         {
             // Store a ref to the clients user interface
             client = f;
         }
 
-        public void UpdateLocationCallback(char[] i)
+        public void UpdateLocationCallback(int[] blank, int[] x, int[] o)
         {
 
         }

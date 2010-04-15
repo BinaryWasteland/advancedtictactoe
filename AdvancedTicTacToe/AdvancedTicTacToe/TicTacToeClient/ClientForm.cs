@@ -14,11 +14,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using System.Runtime.Remoting;  // RemotingConfiguration class
+using System.Runtime.Remoting.Channels; // ChannelServices class
+using TicTacToeLibrary;
+
 namespace TicTacToeClient
 {
     public partial class ClientForm : Form
     {
         // Member variables & constants
+        private Locations loc = new Locations();
+        private Guid callbackId;
         private const int CELL_MARGIN = 16;     // Used for aligning grid cells
         private const int CELL_WIDTH = 80;      // Used for aligning grid cells
         private TicTacToeLogic t3 = new TicTacToeLogic();     // Game logic layer
@@ -33,10 +39,20 @@ namespace TicTacToeClient
 
             try
             {
+                // Load the remoting config file
+                RemotingConfiguration.Configure("TicTacToeClient.exe.config", false);
+
+                // Activate a TicTacToeLibrary.Locations object
+                loc = (Locations)Activator.GetObject(typeof(Locations), "http://localhost:10000/locations.soap");
+
+                // Register this client instance for server callbacks
+                callbackId = loc.RegisterCallback(new UpdatesFromServer(this));
+
+                // Display client's GUID in form caption
+                this.Text += " [" + callbackId.ToString() + "]";
+
                 // Setup label controls for grid cells
                 createCells();
-
-                //btnNew.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -143,8 +159,8 @@ namespace TicTacToeClient
         {
             if (gameState.Winner == TicTacToeState.Who.USER)
                 MessageBox.Show("Game Over! " + (char)TicTacToeState.Symbol.USER + " is the winner.");
-            else if (gameState.Winner == TicTacToeState.Who.PROG)
-                MessageBox.Show("Game Over! " + (char)TicTacToeState.Symbol.PROG + " is the winner.");
+            else if (gameState.Winner == TicTacToeState.Who.USER2)
+                MessageBox.Show("Game Over! " + (char)TicTacToeState.Symbol.USER2 + " is the winner.");
             else
                 MessageBox.Show("Game Over! It's a draw!");
         }

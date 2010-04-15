@@ -76,7 +76,7 @@ namespace TicTacToeClient
                     if ((gameState.UserMovesFirst && m % 2 == 0) || (!gameState.UserMovesFirst && m % 2 == 1))
                         sym = (char)(TicTacToeState.Symbol.USER);
                     else
-                        sym = (char)(TicTacToeState.Symbol.PROG);
+                        sym = (char)(TicTacToeState.Symbol.USER2);
                     if (pos > -1)
                         gameState.Position[pos] = sym;
                 }

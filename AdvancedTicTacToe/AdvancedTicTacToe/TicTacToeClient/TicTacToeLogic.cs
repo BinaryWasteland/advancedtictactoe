@@ -112,7 +112,7 @@ namespace TicTacToeClient
             cell = availableCells[random.Next(availableCells.Count)];
 
             // Make move
-            gameState.Position[cell] = (char)(TicTacToeState.Symbol.PROG);
+            gameState.Position[cell] = (char)(TicTacToeState.Symbol.USER2);
             gameState.Sequence[gameState.MoveNumber++] = cell;
 
             // Reset gameState's over attribute
@@ -163,7 +163,7 @@ namespace TicTacToeClient
                 if (gameState.Position[p1] == (char)(TicTacToeState.Symbol.USER))
                     gameState.Winner = TicTacToeState.Who.USER;
                 else
-                    gameState.Winner = TicTacToeState.Who.PROG;
+                    gameState.Winner = TicTacToeState.Who.USER2;
 
                 // Save the game
                 games.SaveGame(gameState);
