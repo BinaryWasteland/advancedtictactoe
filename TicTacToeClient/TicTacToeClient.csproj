@@ -94,9 +94,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TicTacToeData.cs" />
-    <Compile Include="TicTacToeLogic.cs" />
-    <Compile Include="TicTacToeState.cs" />
     <Compile Include="UpdatesFromServer.cs" />
   </ItemGroup>
   <ItemGroup>

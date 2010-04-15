@@ -142,14 +142,29 @@ namespace TicTacToeClient
         {
             try
             {
-                if (false/*cell.InvokeRequired*/)
+                for (int i = 0; i < cells.Length; ++i)
                 {
-                    // This will happen if current thread isn't the UI's own thread
-                    //cells.BeginInvoke(new FormUpdateDelegate(refreshGrid), grid);
-                }
-                else
-                {
-                    
+
+                    if (cells[i].InvokeRequired)
+                    {
+                        // This will happen if current thread isn't the UI's own thread
+                        cells[i].BeginInvoke(new FormUpdateDelegate(refreshGrid),
+                            grid);
+                    }
+                    else
+                    {
+                        cells[i].Text = grid[i].ToString();
+                        //// This will happen if the current thread IS the UI's thread
+                        //txtShoeCount.Text = numCardsInShoe.ToString();
+                        //numDecks.Value = numDecksInShoe;
+
+                        //// Only refresh the "hand" if the shoe is "refreshed"
+                        //if (numCardsInShoe == 52 * numDecksInShoe)
+                        //{
+                        //    lstCards.Items.Clear();
+                        //    txtHandCount.Text = "0";
+                        //}
+                    }
                 }
             }
             catch (Exception ex)
@@ -157,8 +172,7 @@ namespace TicTacToeClient
                 MessageBox.Show(ex.Message, "Tic-Tac-Toe Error");
             }
 
-            for (int i = 0; i < cells.Length; ++i)
-                cells[i].Text = grid[i].ToString();
+            
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
