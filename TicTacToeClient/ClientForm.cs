@@ -42,7 +42,7 @@ namespace TicTacToeClient
                 RemotingConfiguration.Configure("TicTacToeClient.exe.config", false);
 
                 // Activate a TicTacToeLibrary.Locations object
-                loc = (Locations)Activator.GetObject(typeof(Locations), "http://localhost:10000/locations.soap");
+                loc = (Locations)Activator.GetObject(typeof(Locations), "http://localhost:10001/locations.soap");
 
                 // Register this client instance for server callbacks
                 callbackId = loc.RegisterCallback(new UpdatesFromServer(this));
