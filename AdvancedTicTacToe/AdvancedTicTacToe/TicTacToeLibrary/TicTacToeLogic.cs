@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TicTacToeClient
+namespace TicTacToeLibrary
 {
     public class TicTacToeLogic : IDisposable
     {
@@ -17,6 +17,7 @@ namespace TicTacToeClient
         private Random random = new Random();
         private TicTacToeState gameState = new TicTacToeState();
         private TicTacToeData games = new TicTacToeData();
+        private Locations loc = new Locations();
 
         // ---------------- Public Methods ----------------
 
@@ -99,6 +100,7 @@ namespace TicTacToeClient
             if (gameState.Position[cell] != ' ')
                 throw new ArgumentException("Cell is already occupied.");
             gameState.Position[cell] = (char)(TicTacToeState.Symbol.USER);
+            //loc.setLoc((char)(TicTacToeState.Symbol.USER), cell);
             gameState.Sequence[gameState.MoveNumber++] = cell;
 
             // Reset gameState's over attribute

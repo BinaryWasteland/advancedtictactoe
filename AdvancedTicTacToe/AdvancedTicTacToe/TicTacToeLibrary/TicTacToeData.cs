@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Data;          // Generic ADO.NET namespace
 using System.Data.OleDb;    // OleDb (Access) namespace
 
-namespace TicTacToeClient
+namespace TicTacToeLibrary
 {
 
     public class TicTacToeData : IDisposable
