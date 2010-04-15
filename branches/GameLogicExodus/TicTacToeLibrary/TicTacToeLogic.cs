@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using TicTacToeLibrary;
 
 namespace TicTacToeClient
 {
@@ -17,7 +18,7 @@ namespace TicTacToeClient
         private Random random = new Random();
         private TicTacToeState gameState = new TicTacToeState();
         private TicTacToeData games = new TicTacToeData();
-
+        private Locations loc = new Locations();
         // ---------------- Public Methods ----------------
 
         // Initialize game state to start a new interactive game
@@ -99,6 +100,7 @@ namespace TicTacToeClient
             if (gameState.Position[cell] != ' ')
                 throw new ArgumentException("Cell is already occupied.");
             gameState.Position[cell] = (char)(TicTacToeState.Symbol.USER);
+            //loc.setLoc((char)(TicTacToeState.Symbol.USER), cell);
             gameState.Sequence[gameState.MoveNumber++] = cell;
 
             // Reset gameState's over attribute
