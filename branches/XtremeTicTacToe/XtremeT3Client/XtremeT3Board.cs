@@ -18,18 +18,30 @@ namespace XtremeT3Client
         private const int CELL_WIDTH = 80;      // Used for aligning grid cells 
         private Label[] cells = new Label[9];   // Tic-Tac-Toe cell controls
         private IXT3GameState gameState;
+        private string server = "";
+        private string name = "";
 
         public XtremeT3Board()
         {
             InitializeComponent();
-
+            Greeting greetings = new Greeting();
+            greetings.ParentForm = this;
+            //nameForm.Parent = this;
+            if (greetings.ShowDialog() == DialogResult.OK)
+            {
+                if (greetings.UserName != "")
+                {
+                    name = greetings.UserName;
+                    server = greetings.Server;
+                }
+            }
             try
             {
                 // Load the remoting config file 
                 RemotingConfiguration.Configure("XtremeT3Client.exe.config", false);
 
                 // Activate a TicTacToeLibrary.Locations object 
-                gameState = (IXT3GameState)Activator.GetObject(typeof(IXT3GameState), "http://localhost:10001/xt3gamestate.soap");
+                gameState = (IXT3GameState)Activator.GetObject(typeof(IXT3GameState), "http://" + server + ":10001/xt3gamestate.soap");
 
                 // Register this client instance for server callbacks 
                 callbackId = gameState.RegisterCallback(new XServerUpdates(this));
