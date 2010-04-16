@@ -8,7 +8,7 @@ namespace XtremeT3Library
     public interface IXServerUpdates
     {
         void UpdateBoardCallback(char[] board);
-        void UpdatePlayersCallback(Guid[] id);
+        void UpdatePlayersCallback(string[] id);
         void GameOverCallback();
     }
 }

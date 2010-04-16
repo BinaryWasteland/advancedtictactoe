@@ -9,6 +9,7 @@ namespace XtremeT3Library
     public class XtremePlayer
     {
         private Guid xPlayerID;
+        private string name = "";
 
         //Constructor
         public XtremePlayer(Guid XPid)
@@ -23,6 +24,12 @@ namespace XtremeT3Library
             { 
                 return xPlayerID; 
             } 
+        }
+
+        public string XPlayerName
+        {
+            get { return name; }
+            set { name = value; }
         }
     }
 }
