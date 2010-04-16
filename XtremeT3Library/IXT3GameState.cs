@@ -9,5 +9,8 @@ namespace XtremeT3Library
     {
         Guid RegisterCallback(IXServerUpdates callback);
         void UnregisterCallback(Guid id);
+        void userSelection(int cell, Guid id);
+        bool getGameOver();
+        XtremeWho.Who getWinner();
     }
 }
