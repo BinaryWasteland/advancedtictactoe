@@ -26,13 +26,17 @@ namespace XtremeT3Client
             try
             {
                 // Load the remoting config file 
-                RemotingConfiguration.Configure("TicTacToeClient.exe.config", false);
+                RemotingConfiguration.Configure("XtremeT3Client.exe.config", false);
 
                 // Activate a TicTacToeLibrary.Locations object 
                 gameState = (IXT3GameState)Activator.GetObject(typeof(IXT3GameState), "http://localhost:10001/xt3gamestate.soap");
 
                 // Register this client instance for server callbacks 
                 callbackId = gameState.RegisterCallback(new XServerUpdates(this));
+                if (callbackId.Equals(Guid.Empty))
+                {
+                    throw new Exception("There are already two players. You cannot be added at this time.");
+                }
 
                 // Display client's GUID in form caption 
                 this.Text += " [" + callbackId.ToString() + "]";
@@ -77,34 +81,25 @@ namespace XtremeT3Client
 
         private void cell_Click(object sender, System.EventArgs e)
         {
-            Label cell = (Label)sender;
-
-            // Label's TabIndex property indicates position in grid 
-            int cellIdx = ((Label)sender).TabIndex;
-
-            // Process the requested move 
-            //makeUserMove(cellIdx);
-        }
-
-        private void makeUserMove(int cell)
-        {
             try
             {
-                //serv.gameState = t3.NextMove(cell);
-                //loc.UpdateGridInfo(serv.gameState.Position);
+                Label cell = (Label)sender;
 
-                //if (gameState.GameOver)
-                //{
-                //    playMode = false;
-                //    reportWinner(serv.gameState);
-                //    btnNew.Enabled = btnReplay.Enabled = true;
-                //}
+                // Label's TabIndex property indicates position in grid 
+                int cellIdx = ((Label)sender).TabIndex;
+
+                // Process the requested move 
+                gameState.userSelection(cellIdx, callbackId);
+
+                /*if (gameState.getGameOver())
+                {
+                    reportWinner();
+                }*/
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "Tic-Tac-Toe Error");
             }
-            
         }
 
         private delegate void FormUpdatePlayers(Guid[] plIDs);
@@ -132,6 +127,40 @@ namespace XtremeT3Client
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private delegate void FormUpdateBoard(char[] board);
+        public void UpdateBoard(char[] board)
+        {
+            try
+            {
+                if (cells[0].InvokeRequired)
+                {
+                    // This will happen if current thread isn't the UI's own thread
+                    cells[0].BeginInvoke(new FormUpdateBoard(UpdateBoard), board);
+                }
+                else
+                {
+                    for (int i = 0; i < cells.Length; i++)
+                    {
+                        cells[i].Text = board[i].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Tic-Tac-Toe Error");
+            }
+        }
+
+        public void ReportWinner()
+        {
+            if (gameState.getWinner() == XtremeWho.Who.USER)
+                MessageBox.Show("Game Over! " + (char)XtremeWho.Symbol.USER + " is the winner.");
+            else if (gameState.getWinner() == XtremeWho.Who.USER2)
+                MessageBox.Show("Game Over! " + (char)XtremeWho.Symbol.USER2 + " is the winner.");
+            else
+                MessageBox.Show("Game Over! It's a draw!");
         }
     }
 }
