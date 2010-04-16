@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtremeT3Library", "XtremeT3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtremeT3Client", "XtremeT3Client\XtremeT3Client.csproj", "{81D506B3-F532-4690-A948-340579BCB0C7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{F9211E45-95D3-4DF7-A708-3D170B604AC0}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Xtreme Tic Tac Toe Design Document.docx = Documentation\Xtreme Tic Tac Toe Design Document.docx
+		Documentation\XtremeTicTacToe.pdf = Documentation\XtremeTicTacToe.pdf
+		Documentation\XtremeTicTacToe.vsd = Documentation\XtremeTicTacToe.vsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
