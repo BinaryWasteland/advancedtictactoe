@@ -48,7 +48,7 @@
             // 
             this.txtName.Location = new System.Drawing.Point(12, 25);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(100, 20);
+            this.txtName.Size = new System.Drawing.Size(111, 20);
             this.txtName.TabIndex = 1;
             // 
             // label2

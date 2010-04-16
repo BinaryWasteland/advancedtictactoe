@@ -120,7 +120,7 @@ namespace XtremeT3Server
             GameOver = false;
         }
 
-        public Guid RegisterCallback(IXServerUpdates callback) 
+        public Guid RegisterCallback(IXServerUpdates callback, string name) 
         { 
             if (players.Count == 2)
             { 
@@ -128,30 +128,28 @@ namespace XtremeT3Server
             } 
             Guid id = Guid.NewGuid(); 
             clientCallbacks.Add(id, callback); 
-            Console.WriteLine("Registering client " + id); 
+            Console.WriteLine("Registering client " + name); 
 
-            addPlayer(id);
+            addPlayer(id, name);
             Fire_UpdatePlayersBoards(); 
-
-            //whoGoesFirst(); 
 
             return id; 
         } 
 
-        public void UnregisterCallback(Guid id) 
+        public void UnregisterCallback(Guid id, string name) 
         { 
-            Console.WriteLine("Unregistering client " + id); 
+            Console.WriteLine("Unregistering client " + name); 
             clientCallbacks.Remove(id); 
-            Console.WriteLine(players.Find(p => p.XPlayerID == id) + " has left."); 
+            Console.WriteLine(name + " has left."); 
             removePlayer(id); 
             Fire_UpdatePlayersList();
             Fire_UpdatePlayersBoards(); 
         }
 
-        private void addPlayer(Guid id)
+        private void addPlayer(Guid id, string name)
         {
             XtremePlayer newPlayer = new XtremePlayer(id);
-
+            newPlayer.XPlayerName = name;
             if (players.Count == 0)
             {
                 Console.WriteLine("Starting Game State");
@@ -166,10 +164,10 @@ namespace XtremeT3Server
         {
             try
             {
-                List<Guid> pl = new List<Guid>();
+                List<string> pl = new List<string>();
                 foreach (XtremePlayer p in players)
                 {
-                    pl.Add(p.XPlayerID);
+                    pl.Add(p.XPlayerName);
                 }
 
                 //for all other players update their gui 
@@ -188,11 +186,8 @@ namespace XtremeT3Server
         {
             foreach (XtremePlayer player in players)
             {
-                XtremePlayer play;
-
                 if(players.Count > 1)
                 {
-                    play = players.Find(p1 => p1.XPlayerID != p1.XPlayerID);
                     clientCallbacks[player.XPlayerID].UpdateBoardCallback(Position);
                 }
             }
