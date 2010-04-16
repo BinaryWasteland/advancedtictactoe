@@ -12,7 +12,8 @@
     <AssemblyName>XtremeT3Client</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>Quake-III-Arena.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Greeting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Greeting.Designer.cs">
+      <DependentUpon>Greeting.cs</DependentUpon>
+    </Compile>
     <Compile Include="XServerUpdates.cs" />
     <Compile Include="XtremeT3Board.cs">
       <SubType>Form</SubType>
@@ -58,6 +65,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Greeting.resx">
+      <DependentUpon>Greeting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -89,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Img\Quake-III-Arena.ico" />
-    <Content Include="Quake-III-Arena.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
