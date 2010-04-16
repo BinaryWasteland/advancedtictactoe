@@ -17,14 +17,19 @@ namespace XtremeT3Client
             XT3B = Xt3b;
         }
 
-        public void UpdatePlayerCallback() 
+        public void UpdateBoardCallback(char[] board) 
         {
-            //XT3B.UpdatePlayer(); 
+            XT3B.UpdateBoard(board);
         }
 
         public void UpdatePlayersCallback(Guid[] id) 
         {
             XT3B.UpdatePlayers(id); 
+        }
+
+        public void GameOverCallback()
+        {
+            XT3B.ReportWinner();
         }
     }
 }
