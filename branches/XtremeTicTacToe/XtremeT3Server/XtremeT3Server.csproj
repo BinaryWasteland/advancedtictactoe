@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Img\Recon.ico" />
-    <Content Include="Recon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
