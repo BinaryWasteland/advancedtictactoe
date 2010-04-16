@@ -22,9 +22,9 @@ namespace XtremeT3Client
             XT3B.UpdateBoard(board);
         }
 
-        public void UpdatePlayersCallback(Guid[] id) 
+        public void UpdatePlayersCallback(string[] names) 
         {
-            XT3B.UpdatePlayers(id); 
+            XT3B.UpdatePlayers(names); 
         }
 
         public void GameOverCallback()

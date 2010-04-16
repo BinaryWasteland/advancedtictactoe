@@ -26,7 +26,6 @@ namespace XtremeT3Client
             InitializeComponent();
             Greeting greetings = new Greeting();
             greetings.ParentForm = this;
-            //nameForm.Parent = this;
             if (greetings.ShowDialog() == DialogResult.OK)
             {
                 if (greetings.UserName != "")
@@ -44,14 +43,14 @@ namespace XtremeT3Client
                 gameState = (IXT3GameState)Activator.GetObject(typeof(IXT3GameState), "http://" + server + ":10001/xt3gamestate.soap");
 
                 // Register this client instance for server callbacks 
-                callbackId = gameState.RegisterCallback(new XServerUpdates(this));
+                callbackId = gameState.RegisterCallback(new XServerUpdates(this), name);
                 if (callbackId.Equals(Guid.Empty))
                 {
                     throw new Exception("There are already two players. You cannot be added at this time.");
                 }
 
                 // Display client's GUID in form caption 
-                this.Text += " [" + callbackId.ToString() + "]";
+                this.Text = " [" + name + "]";
 
                 // Setup label controls for grid cells 
                 createCells();
@@ -102,11 +101,6 @@ namespace XtremeT3Client
 
                 // Process the requested move 
                 gameState.userSelection(cellIdx, callbackId);
-
-                /*if (gameState.getGameOver())
-                {
-                    reportWinner();
-                }*/
             }
             catch(Exception ex)
             {
@@ -114,22 +108,22 @@ namespace XtremeT3Client
             }
         }
 
-        private delegate void FormUpdatePlayers(Guid[] plIDs);
-        public void UpdatePlayers(Guid[] plIDs)
+        private delegate void FormUpdatePlayers(string[] names);
+        public void UpdatePlayers(string[] names)
         {
-            if (plIDs != null && plIDs.Length != 0)
+            if (names != null && names.Length != 0)
             {
                 try
                 {
                     if (lblOpposition.InvokeRequired)
-                        lblOpposition.BeginInvoke(new FormUpdatePlayers(UpdatePlayers), new Object[] { plIDs });
+                        lblOpposition.BeginInvoke(new FormUpdatePlayers(UpdatePlayers), new Object[] { names });
                     else
                     {
-                        foreach (Guid n in plIDs)
+                        foreach (string n in names)
                         {
-                            if (plIDs.ToString() != n.ToString())
+                            if (name != n.ToString())
                             {
-                                lblOpposition.Text = n.ToString();
+                                lblOpposition.Text = n;
                             }
                         }
                     }
@@ -146,10 +140,10 @@ namespace XtremeT3Client
         {
             try
             {
-                if (cells[0].InvokeRequired)
+                if (this.InvokeRequired)
                 {
                     // This will happen if current thread isn't the UI's own thread
-                    cells[0].BeginInvoke(new FormUpdateBoard(UpdateBoard), board);
+                    this.BeginInvoke(new FormUpdateBoard(UpdateBoard), board);
                 }
                 else
                 {
@@ -165,14 +159,38 @@ namespace XtremeT3Client
             }
         }
 
+        private delegate void FormReportWinner();
         public void ReportWinner()
         {
-            if (gameState.getWinner() == XtremeWho.Who.USER)
-                MessageBox.Show("Game Over! " + (char)XtremeWho.Symbol.USER + " is the winner.");
-            else if (gameState.getWinner() == XtremeWho.Who.USER2)
-                MessageBox.Show("Game Over! " + (char)XtremeWho.Symbol.USER2 + " is the winner.");
+            if (this.InvokeRequired)
+                this.BeginInvoke(new FormReportWinner(ReportWinner), null);
             else
-                MessageBox.Show("Game Over! It's a draw!");
+            {
+                if (gameState.getWinner() == XtremeWho.Who.USER)
+                    MessageBox.Show("Game Over! " + (char)XtremeWho.Symbol.USER + " is the winner.");
+                else if (gameState.getWinner() == XtremeWho.Who.USER2)
+                    MessageBox.Show("Game Over! " + (char)XtremeWho.Symbol.USER2 + " is the winner.");
+                else
+                    MessageBox.Show("Game Over! It's a draw!");
+            }
+        }
+
+        private void XtremeT3Board_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                gameState.UnregisterCallback(callbackId, name);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            this.Close();
         }
     }
 }

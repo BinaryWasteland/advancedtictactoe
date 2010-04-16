@@ -7,8 +7,8 @@ namespace XtremeT3Library
 {
     public interface IXT3GameState
     {
-        Guid RegisterCallback(IXServerUpdates callback);
-        void UnregisterCallback(Guid id);
+        Guid RegisterCallback(IXServerUpdates callback, string name);
+        void UnregisterCallback(Guid id, string name);
         void userSelection(int cell, Guid id);
         bool getGameOver();
         XtremeWho.Who getWinner();
