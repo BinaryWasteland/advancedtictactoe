@@ -10,5 +10,7 @@ namespace XtremeT3Library
         void UpdateBoardCallback(char[] board);
         void UpdatePlayersCallback(string[] id);
         void GameOverCallback();
+        void EnableButtons();
+        void DisableButtons();
     }
 }
