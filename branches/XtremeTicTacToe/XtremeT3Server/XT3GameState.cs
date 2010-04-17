@@ -33,11 +33,10 @@ namespace XtremeT3Server
 
         public void userSelection(int cell, Guid id)
         {
-                if (players.Count > 1)
+            if (players.Count == 2)
+            {
+                if (Position[cell] == ' ')
                 {
-                    if (Position[cell] != ' ')
-                        throw new Exception("Cell is already occupied.");
-
                     if (players[0].XPlayerID == id)
                     {
                         if (MoveNumber % 2 == 0)
@@ -63,6 +62,7 @@ namespace XtremeT3Server
                         }
                     }
                 }
+            }
         }
 
         public void updateGameOver()
@@ -109,15 +109,25 @@ namespace XtremeT3Server
             return won;
         }
 
+        public void GameDone()
+        {
+            Fire_EnableButtons();
+        }
+
         public void Reset()
         {
-            for (int i = 0; i < 9; i++)
+            if (players.Count == 2)
             {
-                Position[i] = ' ';
-                Sequence[i] = -1;
+                for (int i = 0; i < Position.Length; i++)
+                {
+                    Position[i] = ' ';
+                    Sequence[i] = -1;
+                }
+                MoveNumber = 0;
+                GameOver = false;
+                Fire_UpdatePlayersBoards();
+                Fire_DisableButtons();
             }
-            MoveNumber = 0;
-            GameOver = false;
         }
 
         public Guid RegisterCallback(IXServerUpdates callback, string name) 
@@ -184,11 +194,11 @@ namespace XtremeT3Server
 
         private void Fire_UpdatePlayersBoards()
         {
-            foreach (XtremePlayer player in players)
+            foreach (IXServerUpdates callback in clientCallbacks.Values)
             {
-                if(players.Count > 1)
+                if(players.Count == 2)
                 {
-                    clientCallbacks[player.XPlayerID].UpdateBoardCallback(Position);
+                    callback.UpdateBoardCallback(Position);
                 }
             }
             if (GameOver)
@@ -197,6 +207,22 @@ namespace XtremeT3Server
                 {
                     callback.GameOverCallback();
                 }
+            }
+        }
+
+        private void Fire_EnableButtons()
+        {
+            foreach (IXServerUpdates callback in clientCallbacks.Values)
+            {
+                callback.EnableButtons();
+            }
+        }
+
+        private void Fire_DisableButtons()
+        {
+            foreach (IXServerUpdates callback in clientCallbacks.Values)
+            {
+                callback.DisableButtons();
             }
         }
 

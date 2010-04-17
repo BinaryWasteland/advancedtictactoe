@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblWinner = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblOpposition
@@ -64,19 +65,30 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(269, 12);
+            this.btnClose.Location = new System.Drawing.Point(261, 260);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(67, 24);
+            this.btnClose.Size = new System.Drawing.Size(75, 31);
             this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(261, 23);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(75, 31);
+            this.btnNew.TabIndex = 4;
+            this.btnNew.Text = "New Game";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // XtremeT3Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(348, 303);
+            this.Controls.Add(this.btnNew);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblWinner);
             this.Controls.Add(this.label2);
@@ -96,6 +108,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblWinner;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnNew;
     }
 }
 

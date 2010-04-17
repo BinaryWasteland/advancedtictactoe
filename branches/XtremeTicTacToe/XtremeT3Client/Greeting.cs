@@ -11,7 +11,7 @@ namespace XtremeT3Client
 {
     public partial class Greeting : Form
     {
-        public XtremeT3Board ParentForm;
+        public XtremeT3Board parentForm;
 
         public string UserName
         {

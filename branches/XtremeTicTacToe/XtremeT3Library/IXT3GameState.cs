@@ -11,6 +11,8 @@ namespace XtremeT3Library
         void UnregisterCallback(Guid id, string name);
         void userSelection(int cell, Guid id);
         bool getGameOver();
+        void GameDone();
+        void Reset();
         XtremeWho.Who getWinner();
     }
 }

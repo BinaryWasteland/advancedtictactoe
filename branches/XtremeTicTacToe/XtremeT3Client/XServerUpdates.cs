@@ -31,5 +31,15 @@ namespace XtremeT3Client
         {
             XT3B.ReportWinner();
         }
+
+        public void EnableButtons()
+        {
+            XT3B.EnableButtons();
+        }
+
+        public void DisableButtons()
+        {
+            XT3B.DisableButtons();
+        }
     }
 }
