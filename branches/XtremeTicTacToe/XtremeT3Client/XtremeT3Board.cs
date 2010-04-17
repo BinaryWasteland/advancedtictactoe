@@ -25,7 +25,7 @@ namespace XtremeT3Client
         {
             InitializeComponent();
             Greeting greetings = new Greeting();
-            greetings.ParentForm = this;
+            greetings.parentForm = this;
             if (greetings.ShowDialog() == DialogResult.OK)
             {
                 if (greetings.UserName != "")
@@ -50,7 +50,7 @@ namespace XtremeT3Client
                 }
 
                 // Display client's GUID in form caption 
-                this.Text = " [" + name + "]";
+                this.Text = name;
 
                 // Setup label controls for grid cells 
                 createCells();
@@ -61,7 +61,7 @@ namespace XtremeT3Client
             }
         }
 
-        private void createCells()
+        public void createCells()
         {
             int x, y; // horizontal & vertical positions 
             int xIdx, yIdx; // horizontal & vertical indexes 
@@ -94,13 +94,16 @@ namespace XtremeT3Client
         {
             try
             {
-                Label cell = (Label)sender;
+                if (!btnNew.Enabled)
+                {
+                    Label cell = (Label)sender;
 
-                // Label's TabIndex property indicates position in grid 
-                int cellIdx = ((Label)sender).TabIndex;
+                    // Label's TabIndex property indicates position in grid 
+                    int cellIdx = ((Label)sender).TabIndex;
 
-                // Process the requested move 
-                gameState.userSelection(cellIdx, callbackId);
+                    // Process the requested move 
+                    gameState.userSelection(cellIdx, callbackId);
+                }
             }
             catch(Exception ex)
             {
@@ -143,7 +146,7 @@ namespace XtremeT3Client
                 if (this.InvokeRequired)
                 {
                     // This will happen if current thread isn't the UI's own thread
-                    this.BeginInvoke(new FormUpdateBoard(UpdateBoard), board);
+                    this.BeginInvoke(new FormUpdateBoard(UpdateBoard), new Object[] { board });
                 }
                 else
                 {
@@ -172,7 +175,26 @@ namespace XtremeT3Client
                     MessageBox.Show("Game Over! " + (char)XtremeWho.Symbol.USER2 + " is the winner.");
                 else
                     MessageBox.Show("Game Over! It's a draw!");
+                gameState.GameDone();
             }
+        }
+
+        private delegate void FormEnableButtons();
+        public void EnableButtons()
+        {
+            if (this.InvokeRequired)
+                this.BeginInvoke(new FormEnableButtons(EnableButtons), null);
+            else
+                btnNew.Enabled = true;
+        }
+
+        private delegate void FormDisableButtons();
+        public void DisableButtons()
+        {
+            if (this.InvokeRequired)
+                this.BeginInvoke(new FormDisableButtons(DisableButtons), null);
+            else
+                btnNew.Enabled = false;
         }
 
         private void XtremeT3Board_Load(object sender, EventArgs e)
@@ -180,8 +202,14 @@ namespace XtremeT3Client
 
         }
 
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            gameState.Reset();
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
+            this.Close();
             try
             {
                 gameState.UnregisterCallback(callbackId, name);
@@ -190,7 +218,6 @@ namespace XtremeT3Client
             {
                 MessageBox.Show(ex.Message);
             }
-            this.Close();
         }
     }
 }
