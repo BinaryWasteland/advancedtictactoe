@@ -17,7 +17,7 @@ namespace XtremeT3Server
         public char[] Position = new char[9]; // Xs and Os in the positions they were played 
         public bool UserMovesFirst = false; // Determines which player moves first
         public int MoveNumber = 0;  // Keeps track of which move number is being played 
-        public XtremeWho.Who Winner = XtremeWho.Who.USER2;
+        public XtremeWho.Who Winner = XtremeWho.Who.NOBODY;
         public bool GameOver = false;
 
         public XT3GameState() 
